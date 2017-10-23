@@ -18,7 +18,7 @@ struct el {
 void *emalloc(int n) {
 	// wrapper function, never returns error. attempts to allocate memory for a new el, writes to stderr and exits if failure
 	void *p;
-	p = malloc(n);
+	p = (el* )malloc(n);
 	if (p==NULL) {
 		fprintf(stderr, "malloc of %d bytes failed. Exiting..\n",n);
 		printf("malloc didnt work bah...\n");
