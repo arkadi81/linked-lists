@@ -10,6 +10,7 @@ int main(int argc, char *argv[]) {
 
 	// first create list
 	//char *name;
+	printf ("---------- Testing for implementation of linked list. Arkady Futerman, c2017 ------------ \n");
 
 	list_data data;
 	el *list = NULL;
@@ -80,5 +81,7 @@ int main(int argc, char *argv[]) {
 
 	printf("releasing all memory and exiting...\n");
 	freeall(list);
+
+	printf (" ------- END OF TESTING -----------  \n");
 	return 0;
 }

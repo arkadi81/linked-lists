@@ -74,7 +74,7 @@ void apply(el *listp, void (*fn)(el*,void*), void *arg) {
 
 	// will apply function fn to each element throughout the list
 	// for debugging
-	printf("apply function initiated...\n");
+	//printf("apply function initiated...\n");
 	int n=1;
 	for (; listp!=NULL; listp=listp->next) {
 		//printf("apply loop %d under way...\n",n);
