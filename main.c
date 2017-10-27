@@ -5,14 +5,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include "list.h" // for tolower
+#include <ctype.h> // for tolower
+#include "list.h" 
 #include "common.h"
 
 #define MAX_FILE_SIZE 5000
 #define MAX_WORDS 750
 #define MAX_WORD_SIZE 34
 #define PRINT_TEXT 1 // allows to print entire text file as it is read for debugging. 1 for printing, 0 for no printing
+#define DELIM " .,;()\n"
 
 
 // Global variables
@@ -44,7 +45,7 @@ int infile = 0;
 // Prototypes
 void init_counters(data [MAX_WORD_SIZE]); // inits global counters with proper values
 	// for total_counter, [i][0] corresponds to i, and is needed to preserve the index as it gets sorted
-void lcase(char *); // converts a word to lowercase
+// void lcase(char *); // converts a word to lowercase
 void dump_words(void); // dumps the words array out to screen
 void dump_counter(void); // displays counter array, for non 0 lengths only;
 void read_multiline_file(FILE *fp, char *buf); // gets a validated, open handle to an open file and dumps all of it into buf, line by line
@@ -71,12 +72,14 @@ void init_counters(data words[MAX_WORD_SIZE]) {
 	return;
 }
 
+/*
 void lcase(char *word) {
 	int i;
 	for (i=0; word[i]; i++) {
 		word[i] = tolower(word[i]);
 	}
 }
+*/
 
 void read_multiline_file(FILE *fp, char buf[]) {
 	char t[MAX_FILE_SIZE]; // temporary to append to buf
@@ -171,42 +174,7 @@ void dump_words() {
 	return;
 }
 
-void tokenize(char *buf) {
-	// buf contains null terminated string
-	char *t;
-	// only expected non std characters in the file are .,;()
-	char *delim=" .,;()\n"; 
 
-	// for 1.2, we need to account for sorting the array
-	// for 1.3 we need to record information re each word (converted to lcase) and its incidence
-
-	t = strtok(buf,delim);
-	int j;
-	data *temp_word_record;
-
-	while (t && num_words < MAX_WORDS) {
-		lcase(t);
-		// have we seen this word yet? if so, find it and aggregate, if not, add it
-		j=0;
-		temp_word_record = &words[strlen(t)-1]; // len 1 is stored in words[0]; // trying to work with pointers
-		while (j<(*temp_word_record).distinct_word_count && strncmp(t,(*temp_word_record).word_list[j].word,strlen(t))!=0) {
-			j++;
-		}
-		//at this point j is at first index that either is out of use or is at word that needs to be incremented
-		if (strncmp(t,(*temp_word_record).word_list[j].word,strlen(t))!=0) {
-			// word not detected in list, add it
-			strncpy((*temp_word_record).word_list[j].word,t,MAX_WORD_SIZE);
-			(*temp_word_record).distinct_word_count++;
-		}
-		// for either options, either if the word is new, or if its an existing word, increase total number of words and individual repeats
-		(*temp_word_record).total_word_count++;
-		(*temp_word_record).word_list[j].repeats++;
-		
-		num_words++;
-		t = strtok(NULL,delim);
-	}
-	return;
-}
 
 int compare_by_total_word_count(const void *a, const void *b) 
 { 

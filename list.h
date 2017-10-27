@@ -1,8 +1,8 @@
 /* list.c linked list implementation, by Arkady Futerman 21071021 */
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+// #include<stdio.h>
+// #include<stdlib.h>
+// #include<string.h>
 
 
 typedef struct {
