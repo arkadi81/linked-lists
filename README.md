@@ -7,6 +7,8 @@ practice creating interface and implementation for linked lists in c, and utiliz
 
 ## Usage
 
+ * clone repo, then:
+
 ### Compile library and main testing file and run:
 * gcc -c list.c
 * gcc -Wall -std=c99 -o main main.c list.o

@@ -175,7 +175,7 @@ void tokenize(char *buf) {
 	// buf contains null terminated string
 	char *t;
 	// only expected non std characters in the file are .,;()
-	char delim[]=" .,;()\n"; 
+	char *delim=" .,;()\n"; 
 
 	// for 1.2, we need to account for sorting the array
 	// for 1.3 we need to record information re each word (converted to lcase) and its incidence
@@ -250,8 +250,7 @@ void lexicographical_word_sort(data words[MAX_WORD_SIZE]) {
 // Main
 int main(int argc, char *argv[]) {
 
-	dat *dest = NULL;
-	read_multiline_file_to_dynamic_list("./sample.txt", dest);
+	read_multiline_file_to_dynamic_list("./sample.txt");
 
 	init_counters(words); 
 

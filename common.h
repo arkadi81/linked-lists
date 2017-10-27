@@ -9,21 +9,35 @@
 typedef int dat;
 
 int process_line(char *buffer, size_t size) {
-	// helper function for read_multiline... does processing for single line of file
+	/* helper function for read_multiline... does processing for single line of file
+
+	tokenize line into individual words
+	 - per word
+
+
+	// check length of word
+
+	// update counters of total words, individual words of corresponding length, and unique words of such length
+	// look for word in the allotted length list... add new word to list or up counter of existing word
+
+	*/
 	printf("Retrieved line of length %zu :\n", size);
 	printf("%s\n", buffer);
 	return 1;
 }
 
-int read_multiline_file_to_dynamic_list(char *path, dat *dest) {
+int read_multiline_file_to_dynamic_list(char *path) {
 	// recieves path of file to read
-	// uses getline to read contents of fp to dest.
+	// uses getline to read contents of fp. Each line is processed using process_line(buf, size)
 	// may have to be modified depending on procedure for reading
-	// *dest as pointer so that it is passed by reference and altered after
+	//TODO: getline is still getting bigger chunks than allocated buffer - bug?
 
 	FILE *fp;
-	char *buffer = NULL;
-	size_t bufsize = 64; // we don't know how much we're getting here, so read in set, small, chunks
+	
+	size_t bufsize = 64; // hopefully those are the chunk sizes... doesnt work though... bug?
+
+	char *buffer = (char*)malloc(bufsize * sizeof(char));
+	printf("size of char is %zu\n", sizeof(char));
 	size_t read; // will be used to store length of current line read by getline
 
 	fp = fopen(path, "r");
@@ -32,7 +46,6 @@ int read_multiline_file_to_dynamic_list(char *path, dat *dest) {
 		exit(1);
 	}
 
-	buffer = (char *)malloc(bufsize * sizeof(char));
 	if (buffer == NULL) {
 		printf("Cannot allocate %zu byte buffer.\n", bufsize);
 		exit(1);

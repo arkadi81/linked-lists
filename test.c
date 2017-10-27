@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 	// --------------------------------------------------------
 
 	data.name ="bravo";
-	element = newitem(data);
+	element = newitem(data); // do i need to free this?!
 	if(element) {
 		printf("creation of element BRAVO successful.\n");
 	} else {
